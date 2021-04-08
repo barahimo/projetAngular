@@ -1,0 +1,1017 @@
+<button (click)="test()">test</button>
+<div style="direction: rtl; text-align: right;">
+    <mdb-card class="text-center text-white mb-3" bgColor="bg-success">
+        <mdb-card-header>
+            <h2>البطاقة الشخصية للمتعلم</h2>
+        </mdb-card-header>
+    </mdb-card>
+    <mdb-breadcrumb customClass="white-text default-color font-weight-bold lighten-2">
+        <mdb-breadcrumb-item *ngFor="let item of keysPanel;let i = index" [class]="panelHeaders[item].color">
+            <mdb-icon far icon="star" class="mr-1"></mdb-icon>
+            {{i+1}}- {{panelHeaders[item].header}}
+        </mdb-breadcrumb-item>
+    </mdb-breadcrumb>
+    <form class="container" [formGroup]="myForm">
+        <hr>
+        <!-- Nom & Prenom -->
+        <div formGroupName="panelPersonel">
+            <mdb-card class="" [hidden]="panel['panelPersonel']">
+                <mdb-card-header>معلومات شخصية :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelPersonel','panelPere')"
+                                       [disabled]="myForm.controls['panelPersonel'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق" disabled>
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class=" container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="image">الصورة</label>
+                                        <!-- <input type="text"
+                                               class="form-control"
+                                               formControlName="image"
+                                               id="image"
+                                               name="image"> -->
+                                        <input type="file"
+                                               class="form-control-file"
+                                               formControlName="image"
+                                               id="image"
+                                               name="image"
+                                               (change)="fileEvent($event)">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPersonel','image').touched && getFormGroup('panelPersonel','image').invalid">
+                                            <span>Image problem</span>
+                                            <!-- <span class="text-danger"
+                                                  *ngIf="getFormGroup('panelPersonel','image').errors?.required">
+                                                massar is required
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="massar">حساب مسار</label>
+                                        <input type="email"
+                                               class="form-control"
+                                               formControlName="massar"
+                                               id="massar"
+                                               name="massar">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPersonel','massar').touched && getFormGroup('panelPersonel','massar').invalid">
+                                            <span class="text-danger"
+                                                  *ngIf="getFormGroup('panelPersonel','massar').errors?.required">
+                                                massar is required
+                                            </span>
+                                            <span class="text-danger"
+                                                  *ngIf="getFormGroup('panelPersonel','massar').errors?.email">
+                                                Enter a valid email address
+                                            </span>
+                                            <span class="text-danger"
+                                                  *ngIf="getFormGroup('panelPersonel','massar').errors?.uniqueMassar">
+                                                Massar existe déja
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nom">الاسم العائلي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="nom"
+                                               name="nom"
+                                               formControlName="nom">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPersonel','nom').touched && getFormGroup('panelPersonel','nom').invalid">
+                                            <span class="text-danger">
+                                                nom is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prenom">الاسم الشخصي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="prenom"
+                                               name="prenom"
+                                               formControlName="prenom">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPersonel','prenom').touched && getFormGroup('panelPersonel','prenom').invalid">
+                                            <span class="text-danger">
+                                                prenom is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label for="genre">النوع :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of genre;let i  = index">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="genre{{i}}"
+                                                       name="genre"
+                                                       formControlName="genre"
+                                                       [value]="item"
+                                                       [checked]="getFormGroup('panelPersonel','genre').value == item">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label" for="genre{{i}}">
+                                                    {{item}}
+                                                </label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="dateNaissance">تاريخ الازدياد</label>
+                                        <input type="date"
+                                               class="form-control"
+                                               id="dateNaissance"
+                                               name="dateNaissance"
+                                               formControlName="dateNaissance">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPersonel','dateNaissance').touched && getFormGroup('panelPersonel','dateNaissance').invalid">
+                                            <span class="text-danger">
+                                                dateNaissance is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class=" text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- Pere -->
+        <div formGroupName="panelPere">
+            <mdb-card class="" [hidden]="panel['panelPere']">
+                <mdb-card-header>معلومات الاب :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelPere','panelMere')"
+                                       [disabled]="myForm.controls['panelPere'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelPere','panelPersonel')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nomPere">الاسم العائلي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="nomPere"
+                                               name="nomPere"
+                                               formControlName="nomPere">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPere','nomPere').touched && getFormGroup('panelPere','nomPere').invalid">
+                                            <span class="text-danger">
+                                                nomPere is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prenomPere">الاسم الشخصي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="prenomPere"
+                                               name="prenomPere"
+                                               formControlName="prenomPere">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelPere','prenomPere').touched && getFormGroup('panelPere','prenomPere').invalid">
+                                            <span class="text-danger">
+                                                prenomPere is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="proffessionPere">مهنة الاب</label>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <select class="browser-default custom-select"
+                                                id="proffessionPere"
+                                                name="proffessionPere"
+                                                formControlName="proffessionPere">
+                                            <option value="">--- مهنة الاب ---</option>
+                                            <option *ngFor="let proffession of proffessions;let i = index"
+                                                    value="{{proffession}}"
+                                                    [selected]="getFormGroup('panelPere','proffessionPere').value == proffession">
+                                                {{proffession}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="niveauPere">مستوى الاب</label>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <select class="browser-default custom-select"
+                                                id="niveauPere"
+                                                name="niveauPere"
+                                                formControlName="niveauPere">
+                                            <option value="">--- مستوى الاب ---</option>
+                                            <option *ngFor="let niveau of niveaux;let i = index"
+                                                    value="{{niveau}}"
+                                                    [selected]="getFormGroup('panelPere','niveauPere').value == niveau">
+                                                {{niveau}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- Mere -->
+        <div formGroupName="panelMere">
+            <mdb-card class="" [hidden]="panel['panelMere']">
+                <mdb-card-header>معلومات الام :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelMere','panelSocial')"
+                                       [disabled]="myForm.controls['panelMere'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelMere','panelPere')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nomMere">الاسم العائلي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="nomMere"
+                                               name="nomMere"
+                                               formControlName="nomMere">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelMere','nomMere').touched && getFormGroup('panelMere','nomMere').invalid">
+                                            <span class="text-danger">
+                                                nomMere is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="prenomMere">الاسم الشخصي</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="prenomMere"
+                                               name="prenomMere"
+                                               formControlName="prenomMere">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelMere','prenomMere').touched && getFormGroup('panelMere','prenomMere').invalid">
+                                            <span class="text-danger">
+                                                prenomMere is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="proffessionMere">مهنة الام</label>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <select class="browser-default custom-select"
+                                                id="proffessionMere"
+                                                name="proffessionMere"
+                                                formControlName="proffessionMere">
+                                            <option value="">--- مهنة الام ---</option>
+                                            <option *ngFor="let proffession of proffessions;let i = index"
+                                                    value="{{proffession}}"
+                                                    [selected]="getFormGroup('panelMere','proffessionMere').value == proffession">
+                                                {{proffession}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="niveauMere">مستوى الام</label>
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <select class="browser-default custom-select"
+                                                id="niveauMere"
+                                                name="niveauMere"
+                                                formControlName="niveauMere">
+                                            <option value="">--- مستوى الام ---</option>
+                                            <option *ngFor="let niveau of niveaux;let i = index"
+                                                    value="{{niveau}}"
+                                                    [selected]="getFormGroup('panelMere','niveauMere').value == niveau">
+                                                {{niveau}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- Informations sociaux  -->
+        <div formGroupName="panelSocial">
+            <mdb-card class="" [hidden]="panel['panelSocial']">
+                <mdb-card-header>معلومات اجتماعية :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelSocial','panelResidence')"
+                                       [disabled]="myForm.controls['panelSocial'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelSocial','panelMere')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="nbFreres">عدد الاخوة : </label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="number"
+                                                   min="0"
+                                                   max="12"
+                                                   class="form-control"
+                                                   id="nbFreres"
+                                                   name="nbFreres"
+                                                   formControlName="nbFreres">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <label for="triFreres">المرتبة بين الاخوة</label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="number"
+                                                   min="1"
+                                                   max="12"
+                                                   class="form-control"
+                                                   id="triFreres"
+                                                   name="triFreres"
+                                                   formControlName="triFreres">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="telephone">رقم الهاتف</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="telephone"
+                                               name="telephone"
+                                               formControlName="telephone">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelSocial','telephone').touched && getFormGroup('panelSocial','telephone').invalid">
+                                            <span class=" text-danger"
+                                                  *ngIf="getFormGroup('panelSocial','telephone').errors?.pattern">
+                                                Enter a valid number phone
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <div class="row">
+                                                <span class="col-sm">
+                                                    <span style="display: inline-block; width: 100px;">
+                                                        <label for="gerant">ولي الامر :</label>
+                                                    </span>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </span>
+                                                <span *ngFor="let item of gerant;let i  = index" class="col-sm">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           id="gerant{{i}}"
+                                                           name="gerant"
+                                                           formControlName="gerant"
+                                                           [value]="item"
+                                                           [checked]="getFormGroup('panelSocial','gerant').value == item">
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <label class="form-check-label" for="gerant{{i}}">
+                                                        {{item}}
+                                                    </label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- *************** || ****************** -->
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <div class="row">
+                                                <span class="col-sm" style="display: inline-block; width: 100px;">
+                                                    <label for="orphelin">يتيم ؟</label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           id="orphelinBool"
+                                                           name="orphelinBool"
+                                                           (change)="this.isOrphelin = !this.isOrphelin">
+                                                </span>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <span class="col-sm" [hidden]="isOrphelin"
+                                                      *ngFor="let item of orphelin;let i = index">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           id="orphelin{{i}}"
+                                                           name="orphelin"
+                                                           [value]="item"
+                                                           (change)="checkOrphelin($event,item)"
+                                                           [checked]="isOrphelin">
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <label class="form-check-label" for="orphelin{{i}}">
+                                                        {{item}}
+                                                    </label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- *************** || ****************** -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label for="divorce">الطلاق :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of listBoolean">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="divorce{{item.key}}"
+                                                       name="divorce"
+                                                       formControlName="divorce"
+                                                       [value]="item.value"
+                                                       [checked]="getFormGroup('panelSocial','divorce').value == item.value">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label" for="divorce{{item.key}}">
+                                                    {{item.value}}
+                                                </label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- Informations residence  -->
+        <div formGroupName="panelResidence">
+            <mdb-card class="" [hidden]="panel['panelResidence']">
+                <mdb-card-header>معلومات حول السكن :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelResidence','panelBesoins')"
+                                       [disabled]="myForm.controls['panelResidence'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelResidence','panelSocial')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label for="zone">الوسط :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of zone;let i  = index">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="zone{{i}}"
+                                                       name="zone"
+                                                       formControlName="zone"
+                                                       [value]="item"
+                                                       [checked]="getFormGroup('panelResidence','zone').value == item">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label" for="zone{{i}}">
+                                                    {{item}}
+                                                </label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <div class="row">
+                                                <span class="col-sm" style="display: inline-block; width: 100px;">
+                                                    <label for="typeResidence">مكان الاقامة :</label>
+                                                </span>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <span class="col-sm" *ngFor="let item of typeResidence;let i  = index">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           id="typeResidence{{i}}"
+                                                           name="typeResidence"
+                                                           formControlName="typeResidence"
+                                                           [value]="item"
+                                                           [checked]="getFormGroup('panelResidence','typeResidence').value == item">
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <label class="form-check-label" for="typeResidence{{i}}">
+                                                        {{item}}
+                                                    </label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label for="chambre">الغرفة :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of chambre;let i  = index">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="chambre{{i}}"
+                                                       name="chambre"
+                                                       formControlName="chambre"
+                                                       [value]="item"
+                                                       [checked]="getFormGroup('panelResidence','chambre').value == item">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label" for="chambre{{i}}">
+                                                    {{item}}
+                                                </label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="adresse">العنوان</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               formControlName="adresse"
+                                               id="adresse"
+                                               name="adresse">
+                                        <div class="alert alert-light"
+                                             *ngIf="getFormGroup('panelResidence','adresse').touched && getFormGroup('panelResidence','adresse').invalid">
+                                            <span class="text-danger">
+                                                adresse is required
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="distance">المسافة عن الاعدادية</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="distance"
+                                               name="distance"
+                                               formControlName="distance">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <div class="row">
+                                                <span class="col-sm-12" style="display: inline-block; width: 100px;">
+                                                    <label for="primaire">التعليم الاولي ؟</label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           id="primaireBool"
+                                                           name="primaireBool"
+                                                           (change)="this.isPrimaire = !this.isPrimaire">
+                                                </span>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <span class="col-sm" [hidden]="isPrimaire"
+                                                      *ngFor="let item of primaire;let i  = index">
+                                                    <input class="form-check-input"
+                                                           type="checkbox"
+                                                           id="primaire{{i}}"
+                                                           name="primaire"
+                                                           [value]="item"
+                                                           (change)="checkPrimaire($event,item)"
+                                                           [checked]="isPrimaire">
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <label class="form-check-label" for="primaire{{i}}">
+                                                        {{item}}
+                                                    </label>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    &nbsp;
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- Besoins  -->
+        <div formGroupName="panelBesoins">
+            <mdb-card class="" [hidden]="panel['panelBesoins']">
+                <mdb-card-header>الحاجيات المتوفرة :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelBesoins','panelFavorites')"
+                                       [disabled]="myForm.controls['panelBesoins'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelBesoins','panelResidence')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6"
+                                     *ngFor="let besoin of besoins;let i = index">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label [for]="i">{{besoin}} :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of listBoolean">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="besoin{{i}}{{item.key}}"
+                                                       name="besoin{{i}}"
+                                                       [value]="item.key"
+                                                       [checked]="!item.key"
+                                                       (change)="checkBesoins(besoin,item.key)">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label"
+                                                       for="besoin{{i}}{{item.key}}">{{item.value}}</label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- favorites  -->
+        <div formGroupName="panelFavorites">
+            <mdb-card class="" [hidden]="panel['panelFavorites']">
+                <mdb-card-header>المواد المفضلة :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelFavorites','panelMalades')"
+                                       [disabled]="myForm.controls['panelFavorites'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelFavorites','panelBesoins')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4"
+                                     *ngFor="let favorite of favorites">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input type="checkbox"
+                                                   [id]="favorite.key"
+                                                   [value]="favorite.key"
+                                                   (change)="checkFavorites($event,favorite.key)">
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <label [for]="favorite.key">
+                                                {{favorite.value}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- malades  -->
+        <div formGroupName="panelMalades">
+            <mdb-card class="" [hidden]="panel['panelMalades']">
+                <mdb-card-header>الامراض :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي"
+                                       (click)="onPanel('panelMalades','panelRemarques')"
+                                       [disabled]="myForm.controls['panelMalades'].invalid">
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelMalades','panelFavorites')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check"
+                                             *ngFor="let sante of santes">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label [for]="sante.key">{{sante.value}} :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of listBoolean">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       [name]="sante.key"
+                                                       id="{{sante.key}}{{item.key}}"
+                                                       [value]="item.key"
+                                                       [checked]="item.key"
+                                                       (change)="checkSantes(sante,item.key)">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label"
+                                                       for="{{sante.key}}{{item.key}}">{{item.value}}</label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <span style="display: inline-block; width: 100px;">
+                                                <label for="malades">الأمراض :</label>
+                                            </span>
+                                            &nbsp;
+                                            &nbsp;
+                                            &nbsp;
+                                            <span *ngFor="let item of listBoolean">
+                                                <input class="form-check-input"
+                                                       type="radio"
+                                                       id="malades{{item.key}}"
+                                                       name="malades"
+                                                       formControlName="malades"
+                                                       [value]="item.value"
+                                                       (change)="checkMalade()">
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                                <label class="form-check-label"
+                                                       for="malades{{item.key}}">{{item.value}}</label>
+                                                &nbsp;
+                                                &nbsp;
+                                                &nbsp;
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text"
+                                               class="form-control"
+                                               formControlName="txtMalade"
+                                               placeholder="عند النقر على نعم يرجى تحديد نوع المرض"
+                                               name="txtMalade">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted"></mdb-card-footer>
+            </mdb-card>
+        </div>
+        <!-- remarques  -->
+        <div formGroupName="panelRemarques">
+            <mdb-card class="" [hidden]="panel['panelRemarques']">
+                <mdb-card-header>ملاحظات :</mdb-card-header>
+                <mdb-card-body>
+                    <mdb-card-title>
+                        <div class="row mt-1">
+                            <div class="col-md-12 text-left">
+                                <input mdbBtn color="primary" size="sm"
+                                       value="التالي" disabled>
+                                <input mdbBtn flat="true" size="sm"
+                                       value="السابق"
+                                       (click)="onPanel('panelRemarques','panelMalades')">
+                            </div>
+                        </div>
+                    </mdb-card-title>
+                    <hr>
+                    <mdb-card-text>
+                        <div class=" container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control"
+                                                  id="remarques"
+                                                  name="remarques"
+                                                  formControlName="remarques"
+                                                  rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-text>
+                </mdb-card-body>
+                <mdb-card-footer class="text-muted">
+                </mdb-card-footer>
+            </mdb-card>
+        </div>
+        <button class="btn btn-primary btn-block"
+                type="submit"
+                (click)="onSubmit()">أرسل</button>
+        <!-- [disabled]="!myForm.valid" -->
+    </form>
+</div>

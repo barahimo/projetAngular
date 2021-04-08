@@ -1,0 +1,19 @@
+<button (click)="test1()">test1</button>
+<button (click)="test2()">test2</button>
+
+<div *ngIf="presidents">
+    <!-- TEST CHARTS -->
+    <div style="display: block">
+        <canvas mdbChart
+                [chartType]="chartType"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"
+                [colors]="chartColors"
+                [options]="chartOptions"
+                [legend]="true"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+    </div>
+    <!-- END CHARTS -->
+</div>

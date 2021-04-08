@@ -1,0 +1,336 @@
+<button (click)="test()">test</button>
+<button [printStyle]="{showContent : {'direction': 'rtl'}}"
+        [useExistingCss]="true" printTitle="MyTitle" printSectionId="pdfContent" ngxPrint>Imprimer</button>
+<div id="pdfContent">
+    <div class="showContent" *ngIf="president">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img [src]="srcImg" alt="photo" height="150" width="150">
+                    {{srcImg}}
+                    <div class="form-group">
+                        <span>حساب مسار : </span>
+                        <span>{{president.massar}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+        <!-- Information personnels -->
+        <mdb-card>
+            <mdb-card-header>معلومات شخصية : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم العائلي : </span>
+                                <span>{{president.nom}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم الشخصي : </span>
+                                {{president.prenom}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>النوع : </span>
+                                <span>{{president.genre}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>تاريخ الازدياد : </span>
+                                <span>{{president.dateNaissance}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- Pere -->
+        <mdb-card>
+            <mdb-card-header>معلومات الاب : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم العائلي : </span>
+                                <span>{{president.pere.nomPere}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم الشخصي : </span>
+                                <span>{{president.pere.prenomPere}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>مهنة الاب : </span>
+                                <span>{{president.pere.proffessionPere}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>مستوى الاب : </span>
+                                <span>{{president.pere.niveauPere}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- Mere -->
+        <mdb-card>
+            <mdb-card-header>معلومات الام : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم العائلي : </span>
+                                <span>{{president.mere.nomMere}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الاسم الشخصي : </span>
+                                <span>{{president.mere.prenomMere}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>مهنة الام : </span>
+                                <span>{{president.mere.proffessionMere}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>مستوى الام : </span>
+                                <span>{{president.mere.niveauMere}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- Informations sociaux  -->
+        <mdb-card>
+            <mdb-card-header>معلومات اجتماعية : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>عدد الاخوة : </span>
+                                <span>{{president.nbFreres}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>المرتبة بين الاخوة : </span>
+                                <span>{{president.triFreres}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>رقم الهاتف : </span>
+                                <span>{{president.telephone}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <span>ولي الامر : </span>
+                                    <span>{{president.gerant}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>يتيم : </span>
+                                <span *ngIf="president.orphelin.length > 0">
+                                    {{president.orphelin}}
+                                </span>
+                                <span *ngIf="president.orphelin.length == 0">لا</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الطلاق : </span>
+                                <span>{{president.divorce}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- Informations residence  -->
+        <mdb-card>
+            <mdb-card-header>معلومات حول السكن : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الوسط : </span>
+                                <span>{{president.zone}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>مكان الاقامة : </span>
+                                <span>{{president.typeResidence}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الغرفة : </span>
+                                <span>{{president.chambre}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>العنوان : </span>
+                                <span>{{president.adresse}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>المسافة عن الاعدادية : </span>
+                                <span>{{president.distance}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>التعليم الاولي : </span>
+                                <span *ngFor="let primaire of president.primaire">
+                                    {{primaire}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- Besoins  -->
+        <mdb-card>
+            <mdb-card-header>الحاجيات المتوفرة : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>{{president.besoins}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- favorites  -->
+        <mdb-card>
+            <mdb-card-header>المواد المفضلة : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- <div class="form-group" *ngFor="let item1 of favorites">
+                            <span *ngFor="let item2 of president.favorites">
+                                <span *ngIf="item1.key == item2">{{item1.value}}</span>
+                            </span>
+                        </div> -->
+                            <span>{{getFavorites()}}</span>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- malades  -->
+        <mdb-card>
+            <mdb-card-header>الامراض : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <ul>
+                                    <li *ngFor="let sante of president.santes">
+                                        {{sante.value}} :
+                                        <span *ngIf="sante.isSante">نعم</span>
+                                        <span *ngIf="!sante.isSante">لا</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <span>الأمراض : </span>
+                                <span>{{president.malades}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+        <!-- remarques  -->
+        <mdb-card>
+            <mdb-card-header>ملاحظات : </mdb-card-header>
+            <br>
+            <mdb-card-text>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <p>{{president.remarques}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mdb-card-text>
+        </mdb-card>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="row">
+       <div class="col-6">
+              <form #formTeacher="ngForm" (ngSubmit)="onSubmit(formTeacher)">
+                     <div class="form-group">
+                            <label for="image">Photo</label>
+                            <input type="file"
+                                   class="form-control-file"
+                                   id="image"
+                                   [(ngModel)]="teacher.image"
+                                   name="image"
+                                   #image="ngModel"
+                                   (change)="fileEvent($event)">
+                     </div>
+                     <div class="form-group">
+                            <label for="massar">Compte Massar</label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="massar"
+                                   [(ngModel)]="teacher.massar"
+                                   name="massar"
+                                   #massar="ngModel"
+                                   required
+                                   minlength="3"
+                                   [ngClass]="{'is-invalid':massar.errors && massar.touched}">
+                            <div [hidden]="!massar.errors?.required"
+                                 class="invalid-feedback">
+                                   Le compte massar est obligatoire !
+                            </div>
+                     </div>
+                     <div class="form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="nom"
+                                   [(ngModel)]="teacher.nom"
+                                   name="nom"
+                                   #nom="ngModel"
+                                   required
+                                   minlength="3"
+                                   [ngClass]="{'is-invalid':nom.errors && nom.touched}">
+                            <div [hidden]="!nom.errors?.required"
+                                 class="invalid-feedback">
+                                   Le nom est obligatoire !
+                            </div>
+                            <div [hidden]="!nom.errors?.minlength"
+                                 class="invalid-feedback">
+                                   Il doit être composé de 3 caractères au plus
+                            </div>
+                     </div>
+                     <div class="form-group">
+                            <label for="prenom">Prénom</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="prenom"
+                                   [(ngModel)]="teacher.prenom"
+                                   name="prenom"
+                                   #prenom="ngModel"
+                                   required
+                                   minlength="3"
+                                   [ngClass]="{'is-invalid':prenom.errors && prenom.touched}">
+                            <div [hidden]="!prenom.errors?.required"
+                                 class="invalid-feedback">
+                                   Le prenom est obligatoire !
+                            </div>
+                            <div [hidden]="!prenom.errors?.minlength"
+                                 class="invalid-feedback">
+                                   Il doit être composé de 3 caractères au plus
+                            </div>
+                     </div>
+                     <div class="form-group">
+                            <div class="form-check"
+                                 *ngFor="let genre of tabGenre">
+                                   <input class="form-check-input"
+                                          type="radio"
+                                          [(ngModel)]="teacher.sexe"
+                                          name="sexe"
+                                          #sexe="ngModel"
+                                          [id]="genre.id"
+                                          [value]="genre.value">
+                                   <label class="form-check-label"
+                                          [for]="genre.id">
+                                          {{genre.display}}
+                                   </label>
+                            </div>
+                     </div>
+                     <div class="form-group">
+                            <label for="dateAffectation">date d'affectation</label>
+                            <input type="date"
+                                   class="form-control"
+                                   id="dateAffectation"
+                                   [(ngModel)]="teacher.dateAffectation"
+                                   name="dateAffectation"
+                                   #dateAffectation="ngModel"
+                                   required
+                                   minlength="3"
+                                   [ngClass]="{'is-invalid':dateAffectation.errors && dateAffectation.touched}">
+                            <div [hidden]="!dateAffectation.errors?.required"
+                                 class="invalid-feedback">
+                                   La date d'affectation est obligatoire !
+                            </div>
+                     </div>
+                     <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <textarea class="form-control"
+                                      ngModel
+                                      id="adresse"
+                                      name="adresse"
+                                      #adresse
+                                      rows="3"></textarea>
+                     </div>
+                     <button type="submit"
+                             class="btn btn-primary btn-block"
+                             [disabled]="!formTeacher.valid">Ajout</button>
+                     <!-- [disabled]="!formTeacher.valid" -->
+              </form>
+       </div>
+</div>

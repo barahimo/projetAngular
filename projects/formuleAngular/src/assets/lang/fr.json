@@ -1,0 +1,12 @@
+{
+    "TEST": "test {{value1}} {{value2}} {{value3}}",
+    "panelPersonel": "Les informations personnelles",
+    "panelPere": "Les informations de père",
+    "panelMere": "Les informations de mère",
+    "panelSocial": "Les informations sociaux",
+    "panelResidence": "Les informations de résidence",
+    "panelBesoins": "Les informations des besoins",
+    "panelFavorites": "Les matières favorites",
+    "panelMalades": "les informations des malades",
+    "panelRemarques": "Les remarques"
+}

@@ -1,0 +1,51 @@
+<button type="button" mdbBtn color="success" routerLink="create" mdbWavesEffect>Create</button>
+<button (click)="print()">Imprimer</button>
+<!-- --------------------------------------------------------- -->
+<div *ngIf="elements?.length>0 else ngStudent">
+    <h1>La liste des élèves</h1>
+</div>
+<div>
+    <ng-template #ngStudent>
+        <div class="text-center">
+            <img [src]="imagePath"
+                 alt="waiting">
+        </div>
+    </ng-template>
+</div>
+<div class="container">
+    <table mdbTable #tableEl="mdbTable" class="z-depth-1">
+        <thead>
+            <tr>
+                <th *ngFor="let head of headElements; let i = index" scope="col">{{head}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let el of elements; let i = index">
+                <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                    scope="row">{{el.numero}}</th>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <a [routerLink]="['show/',el.id]">{{el.massar}}</a>
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{el.nom}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{el.prenom}}
+                </td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{el.sexe}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{el.edit}}</td>
+                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    {{el.delete}}</td>
+            </tr>
+        </tbody>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="4">
+                    <mdb-table-pagination [tableEl]="tableEl" [searchDataSource]="elements"></mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

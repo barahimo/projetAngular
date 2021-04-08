@@ -1,0 +1,180 @@
+<button (click)="test()">test</button>
+<p>{{api}}</p>
+<!-- <a routerLink="" (click)="translateFR()">FR</a>
+&nbsp;
+&nbsp;
+<a routerLink="" (click)="translateAR()">AR</a>
+<div [style]="{'direction' : dir ?'ltr':'rtl','text-align': dir ?'left':'right'}"
+     *ngFor="let item of keysPanel;let i = index">
+    {{i+1}}- {{item | translate}}
+</div>
+<br> -->
+<br>
+<div style="direction: rtl; text-align: right;">
+    <button routerLink="create" type="button" mdbBtn color="success" mdbWavesEffect>أضف</button>
+    <br>
+    <mdb-card>
+        <div class="text-center text-info">
+            <a style="text-decoration: underline;" (click)="panelSearch()">
+                <i class="fas"
+                   [class.fa-arrow-down]="isSearch == true"
+                   [class.fa-arrow-up]="isSearch == false"></i>
+                بحث متقدم
+                <i class="fas"
+                   [class.fa-arrow-down]="isSearch == true"
+                   [class.fa-arrow-up]="isSearch == false"></i>
+            </a>
+        </div>
+        <mdb-card-body [hidden]="isSearch">
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="orphelin"
+                           (change)="panelOrphelin()"
+                           [checked]="isSearch">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <label class="form-check-label" for="orphelin">
+                        يتيم ؟
+                    </label>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <span [hidden]="isOrphelin" *ngFor="let item of orphelin;let i = index">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="orphelin{{i}}"
+                               name="orphelin"
+                               [value]="item"
+                               (change)="checkOrphelin($event,item)"
+                               [checked]="isOrphelin">
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <label class="form-check-label" for="orphelin{{i}}">
+                            {{item}}
+                        </label>
+                        &nbsp;
+                        <span [hidden]="i == orphelin.length - 1">
+                            - و -
+                        </span>
+                        &nbsp;
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           id="besoins"
+                           (change)="panelBesoins()"
+                           [checked]="isSearch">
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <label class="form-check-label" for="besoins">
+                        الحاجيات ؟
+                    </label>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <span [hidden]="isBesoins" *ngFor="let item of besoins;let i = index">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="besoins{{i}}"
+                               name="besoins"
+                               [value]="item"
+                               (change)="checkBesoins($event,item)"
+                               [checked]="isBesoins">
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <label class="form-check-label" for="besoins{{i}}">
+                            {{item}}
+                        </label>
+                        &nbsp;
+                        <span [hidden]="i == besoins.length - 1">
+                            - أو -
+                        </span>
+                        &nbsp;
+                    </span>
+                </div>
+            </div>
+        </mdb-card-body>
+    </mdb-card>
+    <br>
+    <br>
+    <div class="table-responsive">
+        <table mdbTable striped="true">
+            <thead class="black white-text">
+                <tr>
+                    <th *ngFor="let header of tableHeaders">{{header}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr mdbTableCol *ngFor="let page of sousPresidents">
+                    <td scope="row" *ngIf="presidents">
+                        {{presidents.indexOf(page)+1}} - {{page.id}}
+                    </td>
+                    <td>
+                        <a [routerLink]="['show/',page.id]">
+                            {{page.massar}}
+                        </a>
+                    </td>
+                    <td>{{page.nom}}</td>
+                    <td>{{page.prenom}}</td>
+                    <td>{{page.dateNaissance}}</td>
+                    <td>{{page.genre}}</td>
+                    <!-- <td>{{page.orphelin}}</td>
+                    <td>{{page.besoins}}</td>
+                    <td>
+                        <ul>
+                            <li *ngFor="let sante of page.santes">
+                                {{sante.value}} :
+                                <span *ngIf="sante.isSante">نعم</span>
+                                <span *ngIf="!sante.isSante">لا</span>
+                            </li>
+                        </ul>
+                    </td> -->
+                    <td>
+                        <i class="fas fa-edit"
+                           style="color: orange;"
+                           [routerLink]="['edit/',page.id]"></i>
+                    </td>
+                    <td>
+                        <i class="fas fa-trash-alt"
+                           style="color: red;"
+                           (click)="onDelete(page)"></i>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot style="background-color: aliceblue;">
+                <tr>
+                    <td [attr.colspan]="lengthHeader" class="text-center">
+                        <span [hidden]="pagesPresidents.nbPage == 0">
+                            <span class="badge bg-success">
+                                <a (click)="tablePage(0)"> « </a>
+                            </span>
+                            <span> - </span>
+                        </span>
+                        <span *ngFor="let page of pagesPresidents.tables;let i = index">
+                            <span class="badge bg-success">
+                                <a (click)="tablePage(i)">{{i+1}}</a>
+                            </span>
+                            <span [hidden]="i == pagesPresidents.nbPage - 1"> -
+                            </span>
+                        </span>
+                        <span [hidden]="pagesPresidents.nbPage == 0">
+                            <span> - </span>
+                            <span class="badge  bg-success">
+                                <a (click)="tablePage(pagesPresidents.nbPage - 1)"> » </a>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

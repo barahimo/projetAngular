@@ -1,0 +1,6 @@
+{
+    "HELLO": "hello {{value}}",
+    "BOSS": "President",
+    "TEACHER": "Teacher",
+    "STUDENT": "Student"
+}

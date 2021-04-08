@@ -1,0 +1,165 @@
+<!-- <div *ngFor="let prof of tabTeachers.sousTable;let i = index">
+    <button (click)="btnPage(i)">{{i + 1}}</button>
+    <ul *ngFor="let ele of prof;let ii = index">
+        <li>{{ii + 1}} {{ele.nom}}</li>
+    </ul>
+</div>
+<br>
+<br> -->
+<!-- <div>
+    <form class="form-inline md-form form-sm active-cyan-2" #formSearch="ngForm">
+        <input type="search"
+               class="form-control form-control-sm mr-3 w-75 rounded" placeholder="Search"
+               aria-label="Search"
+               aria-describedby="search-addon" ngModel
+               name="search"
+               #search="ngModel"
+               (keyup)="onSearch(formSearch)" />
+    </form>
+</div>
+<table mdbTable>
+    <thead class=" black white-text">
+        <tr>
+            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr mdbTableCol *ngFor="let teacher of elements; let i = index">
+            <th scope="row">{{i+1}}</th>
+            <th><img [src]="teacher.image"
+                     [alt]="'photo : '+teacher.id"
+                     height="50"
+                     width="50"></th>
+            <td>{{teacher.massar}}</td>
+            <td>{{teacher.nom}}</td>
+            <td>{{teacher.prenom}}</td>
+            <td>{{teacher.sexe}}</td>
+            <td style="text-align: center;">
+                <i class="fas fa-edit"
+                   style="color: orange;"
+                   [routerLink]="['edit/',teacher.id]"></i>
+            </td>
+            <td style="text-align: center;">
+                <i class="fas fa-trash-alt"
+                   style="color: red;"
+                   (click)="onDelete(teacher.id)"></i>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+<button (click)="print()">Imprimer</button>
+<!-- <input type="file" (change)="encodeImage(this)">
+<button (click)="createPdf()">Create PDF</button> -->
+<h2>Le nombre de professeurs : {{elements.length}}</h2>
+<button mdbBtn type="button" color="success" rounded="true" mdbWavesEffect routerLink="create">
+    <i class="fas fa-plus-circle"></i> professeur
+</button>
+<div>
+    <form class="form-inline md-form form-sm active-cyan-2" #formSearch="ngForm">
+        <input type="search"
+               class="form-control form-control-sm mr-3 w-75 rounded" placeholder="Search"
+               aria-label="Search"
+               aria-describedby="search-addon" ngModel
+               name="search"
+               #search="ngModel"
+               (keyup)="onSearch(formSearch)" />
+        <!-- <mdb-icon fas icon="search"
+                aria-hidden="true"
+                (click)="onSearch(formSearch)"></mdb-icon> -->
+    </form>
+</div>
+<h1>La liste des professeurs</h1>
+<div class="container">
+    <table mdbTable #tableEl="mdbTable" class="z-depth-1" id="my-table">
+        <thead>
+            <tr>
+                <th *ngFor="let head of headElements; let i = index" scope="col">{{head}}
+                </th>
+                <th style="text-align: center;">
+                    <i class=" fas fa-trash-alt"
+                       style="color: black;"
+                       (click)="onClear()"></i>
+                </th>
+                <th style="text-align: center;">
+                    <input type="checkbox"
+                           name="supp"
+                           [checked]="isCheckedItems"
+                           (change)="check($event)">
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="elements?.length>0 else ngTeacher">
+            <tr *ngFor="let el of elements; let i = index">
+                <th style="text-align: center;"
+                    *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex"
+                    scope="row">{{i+1}}</th>
+                <th style="text-align: center;"
+                    *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex"
+                    scope="row">
+                    <img [src]="el.image"
+                         [alt]="'photo : '+el.id"
+                         height="50"
+                         width="50">
+                </th>
+                <td *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    <a [routerLink]="['show/',el.id]">{{el.massar}}</a>
+                </td>
+                <td *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    {{el.nom}}</td>
+                <td *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    {{el.prenom}}
+                </td>
+                <td *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    {{el.sexe}}</td>
+                <td style="text-align: center;"
+                    *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    <i class="fas fa-edit"
+                       style="color: orange;"
+                       [routerLink]="['edit/',el.id]"></i>
+                </td>
+                <td style="text-align: center;"
+                    *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    <i class="fas fa-trash-alt"
+                       style="color: red;"
+                       (click)="onDelete(el)"></i>
+                </td>
+                <td style="text-align: center;"
+                    *ngIf="i+1 >= teachersPagination.firstItemIndex && i < teachersPagination.lastItemIndex">
+                    <!-- <form #formCheck="ngForm">
+                        <input type="checkbox"
+                               ngModel
+                               #check="ngModel"
+                               name="check"
+                               value="{{el.id}}"
+                               (change)="onCheck(formCheck,$event)">
+                    </form> -->
+                    <input type="checkbox"
+                           name="check"
+                           value="{{el.id}}"
+                           [checked]="isChecked"
+                           (change)="onCheck($event)">
+                </td>
+            </tr>
+        </tbody>
+        <ng-template #ngTeacher>
+            <tbody>
+                <tr style="text-align: center;">
+                    <th colspan="8">
+                        <div class="text-center">
+                            <img [src]="imagePath" alt="waiting">
+                        </div>
+                    </th>
+                </tr>
+            </tbody>
+        </ng-template>
+        <tfoot class="grey lighten-5 w-100">
+            <tr>
+                <td colspan="4">
+                    <mdb-table-pagination [tableEl]="tableEl"
+                                          [searchDataSource]="elements">
+                    </mdb-table-pagination>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

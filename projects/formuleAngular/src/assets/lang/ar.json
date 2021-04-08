@@ -1,0 +1,15 @@
+{
+    "HELLO": "مرحبا {{value}}",
+    "BOSS": "الرئيس",
+    "TEACHER": "الاستاذ",
+    "STUDENT": "التلميذ",
+    "panelPersonel": "معلومات شخصية",
+    "panelPere": "معلومات الاب",
+    "panelMere": "معلومات الام",
+    "panelSocial": "معلومات اجتماعية",
+    "panelResidence": "معلومات حول السكن",
+    "panelBesoins": "الحاجيات",
+    "panelFavorites": "المواد المفضلة",
+    "panelMalades": "الامراض",
+    "panelRemarques": "ملاحظات"
+}
