@@ -73,13 +73,18 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.get();
+    if(PresidentService.staticPresidents.length == 0)
+      this.get();
+    else
+      this.pagination(PresidentService.staticPresidents);
   }
 
   get() {
     this.presidentService.getFileJSON().subscribe(data => {
+    console.log("Length2 : "+PresidentService.staticPresidents.length);
       this.presidents = data;
-      this.pagination(this.presidents);
+      PresidentService.staticPresidents = data;
+      this.pagination(data);
     });
   }
 
@@ -117,7 +122,7 @@ export class IndexComponent implements OnInit {
         if (!array1.includes(array2[i])) temp.push(array2[i]);
       return temp.sort((a, b) => a - b);
     }
-    this.presidents.forEach((item: President) => {
+    PresidentService.staticPresidents.forEach((item: President) => {
       (differenceOf2Arrays(item[key], array).length == 0) ?
         this.tableSearch.push(item) :
         this.tableSearch = this.tableSearch.filter(txt => txt != item);
@@ -141,7 +146,7 @@ export class IndexComponent implements OnInit {
     this.dataSearch = [];
     this.isOrphelin = !this.isOrphelin;
     if (this.isOrphelin)
-      this.pagination(this.presidents);
+      this.pagination(PresidentService.staticPresidents);
     else
       this.dataResult("orphelin", this.dataSearch);
   }
@@ -150,7 +155,7 @@ export class IndexComponent implements OnInit {
   //
   isBesoins = true;
   checkBesoins(e: any, texte: string) {
-    this.presidents.forEach((item: President) => {
+    PresidentService.staticPresidents.forEach((item: President) => {
       let besoins = item.besoins;
       if (besoins.includes(texte))
         (e.target.checked) ? this.tableSearch.push(item) : this.tableSearch = this.tableSearch.filter(txt => txt != item);
@@ -163,7 +168,7 @@ export class IndexComponent implements OnInit {
     this.tableSearch = [];
     this.isBesoins = !this.isBesoins;
     if (this.isBesoins)
-      this.pagination(this.presidents);
+      this.pagination(PresidentService.staticPresidents);
   }
   isSearch = true;
   panelSearch() {
@@ -171,7 +176,7 @@ export class IndexComponent implements OnInit {
     this.isOrphelin = true;
     this.isBesoins = true;
     if (this.isSearch)
-      this.pagination(this.presidents);
+      this.pagination(PresidentService.staticPresidents);
   }
   onDelete(item) {
     Swal.fire({

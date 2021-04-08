@@ -11,6 +11,7 @@ export class PresidentService extends DataService {
   constructor(http: HttpClient) {
     super('presidents', http);
   }
+  public static staticPresidents: President[] = [];
   static president: President;
   static getMassarList: string[] = [];
   static massarCourant: string = "";

@@ -144,6 +144,7 @@ export class CreateComponent implements OnInit {
     private fb: FormBuilder
   ) { }
   ngOnInit(): void {
+    console.log("Length Create : "+PresidentService.staticPresidents.length);
     this.resetFormGroup();
     this.presidentService.getMassar();
   }
