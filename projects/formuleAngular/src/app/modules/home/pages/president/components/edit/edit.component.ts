@@ -91,7 +91,8 @@ export class EditComponent implements OnInit {
     "panelPersonel": this.fb.group({
       "image": new FormControl(""),
       // "massar": new FormControl("", [Validators.required, Validators.email, MassarValidator.uniqueMassarEdit(this.president.massar)]),
-      "massar": new FormControl("", [MassarValidator.uniqueMassarEdit("test")]),
+      //"massar": new FormControl("", [MassarValidator.uniqueMassarEdit("test")]),
+      "massar": new FormControl(""),
       "nom": new FormControl("", Validators.required),
       "prenom": new FormControl("", Validators.required),
       "genre": new FormControl(""),
@@ -172,6 +173,13 @@ export class EditComponent implements OnInit {
     this.getFormGroup('panelPersonel', 'image').setValue(this.president.image);
     //Massar
     this.getFormGroup('panelPersonel', 'massar').setValue(this.president.massar);
+    // this.getFormGroup('panelPersonel', 'massar').setValidators(MassarValidator.uniqueMassarEdit(this.president.massar));
+    // this.getFormGroup('panelPersonel', 'massar').setValidators([Validators.required,MassarValidator.uniqueMassarEdit("test")]);
+    this.getFormGroup('panelPersonel', 'massar')
+    .setValidators([
+      Validators.required,
+      MassarValidator.uniqueMassarEdit(PresidentService.massarCourant)
+    ]);
     //Nom
     this.getFormGroup('panelPersonel', 'nom').setValue(this.president.nom);
     //Prenom
