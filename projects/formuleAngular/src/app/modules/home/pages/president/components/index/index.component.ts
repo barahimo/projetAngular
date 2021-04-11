@@ -60,7 +60,7 @@ export class IndexComponent implements OnInit {
   lengthHeader = this.tableHeaders.length;
   presidents: President[] = [];
   sousPresidents: President[];
-  pagesPresidents = { dim: 15, tables: [], nbPage: 0 };
+  pagesPresidents = { dim: 5, tables: [], nbPage: 0 };
   tableSearch: President[] = [];
   orphelin = this.presidentService.orphelin;
   besoins = this.presidentService.besoins;
