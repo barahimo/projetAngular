@@ -90,7 +90,8 @@ export class EditComponent implements OnInit {
   myForm: FormGroup = new FormGroup({
     "panelPersonel": this.fb.group({
       "image": new FormControl(""),
-      "massar": new FormControl("", [Validators.required, Validators.email, MassarValidator.uniqueMassarEdit]),
+      // "massar": new FormControl("", [Validators.required, Validators.email, MassarValidator.uniqueMassarEdit(this.president.massar)]),
+      "massar": new FormControl("", [MassarValidator.uniqueMassarEdit("test")]),
       "nom": new FormControl("", Validators.required),
       "prenom": new FormControl("", Validators.required),
       "genre": new FormControl(""),

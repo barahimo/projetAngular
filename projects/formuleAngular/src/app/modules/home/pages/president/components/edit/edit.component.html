@@ -97,17 +97,17 @@
                                                    name="massar">
                                             <div class="alert alert-light"
                                                  *ngIf="getFormGroup('panelPersonel','massar').touched && getFormGroup('panelPersonel','massar').invalid">
-                                                <span class="text-danger"
+                                                <!-- <span class="text-danger"
                                                       *ngIf="getFormGroup('panelPersonel','massar').errors?.required">
                                                     massar is required
                                                 </span>
                                                 <span class=" text-danger"
                                                       *ngIf="getFormGroup('panelPersonel','massar').errors?.email">
                                                     Enter a valid email address
-                                                </span>
+                                                </span> -->
                                                 <span class=" text-danger"
                                                       *ngIf="getFormGroup('panelPersonel','massar').errors?.uniqueMassarEdit">
-                                                    Massar existe déja
+                                                    Massar existe déja {{getFormGroup('panelPersonel','massar').errors?.val}}
                                                 </span>
                                             </div>
 
