@@ -10,17 +10,9 @@ export class MassarValidator {
         }
         return null;
     }
-    // static uniqueMassarEdit(control: AbstractControl): ValidationErrors | null {
-    //     if (PresidentService.getMassarList.includes(control.value) && (control.value) != PresidentService.massarCourant) {
-    //         return {
-    //             uniqueMassarEdit: true
-    //         }
-    //     }
-    //     return null;
-    // }
     static uniqueMassarEdit(val :string): ValidatorFn {
         return  (control: AbstractControl): ValidationErrors | null => {
-            if (val == control.value) {
+            if (PresidentService.getMassarList.includes(control.value) && (control.value) != val) {
                 return {
                     'uniqueMassarEdit': true,'val':val
                 }

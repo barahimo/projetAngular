@@ -101,14 +101,13 @@
                                                  *ngIf="getFormGroup('panelPersonel','massar').errors?.required">
                                                  massar is required
                                                 </span>
-                                                <!-- 
                                                 <span class=" text-danger"
                                                       *ngIf="getFormGroup('panelPersonel','massar').errors?.email">
                                                     Enter a valid email address
-                                                </span> -->
+                                                </span>
                                                 <span class=" text-danger"
                                                       *ngIf="getFormGroup('panelPersonel','massar').errors?.uniqueMassarEdit">
-                                                    Massar existe déja {{getFormGroup('panelPersonel','massar').errors?.val}}
+                                                    Massar existe déja - Massar actuel : {{getFormGroup('panelPersonel','massar').errors?.val}} -
                                                 </span>
                                             </div>
 
